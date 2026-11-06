@@ -1,0 +1,58 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(cuid())
+  clerkId   String   @unique
+  email     String   @unique
+  name      String
+  avatarUrl String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  createdProjects Project[] @relation("ProjectCreator")
+  collaborations  Project[] @relation("ProjectCollaborators")
+  createdTasks    Task[]    @relation("TaskCreator")
+  assignedTasks   Task[]    @relation("TaskAssignee")
+}
+
+model Project {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  inviteCode  String   @unique @default(cuid())
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  creatorId String
+  creator   User   @relation("ProjectCreator", fields: [creatorId], references: [id], onDelete: Cascade)
+
+  collaborators User[] @relation("ProjectCollaborators")
+  tasks         Task[]
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  solution    String?
+  status      String   @default("A_FAIRE")
+  dueDate     DateTime
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  projectId String
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+  creatorId String
+  creator   User   @relation("TaskCreator", fields: [creatorId], references: [id])
+
+  assigneeId String
+  assignee   User   @relation("TaskAssignee", fields: [assigneeId], references: [id])
+}

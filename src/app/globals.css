@@ -1,26 +1,139 @@
 @import "tailwindcss";
 
+/* Active DaisyUI avec le thème personnalisé "taskflow" */
+@plugin "daisyui" {
+  themes: taskflow --default;
+}
+
+/* Configuration du thème personnalisé "taskflow" */
+@plugin "daisyui/theme" {
+  name: "taskflow";
+  default: true;
+  prefersdark: false;
+  color-scheme: light;
+
+  /* Couleurs de base */
+  --color-base-100: oklch(100% 0 0);
+  --color-base-200: oklch(97% 0.005 264);
+  --color-base-300: oklch(93% 0.01 264);
+  --color-base-content: oklch(20% 0.02 264);
+
+  /* Couleur primaire (bleu) */
+  --color-primary: oklch(55% 0.22 264);
+  --color-primary-content: oklch(98% 0.01 264);
+
+  /* Couleurs secondaires */
+  --color-secondary: oklch(65% 0.15 280);
+  --color-secondary-content: oklch(98% 0.01 280);
+
+  /* Couleur d'accent */
+  --color-accent: oklch(70% 0.18 300);
+  --color-accent-content: oklch(98% 0.01 300);
+
+  /* Couleur neutre */
+  --color-neutral: oklch(40% 0.02 264);
+  --color-neutral-content: oklch(98% 0.01 264);
+
+  /* Couleurs d'état */
+  --color-info: oklch(70% 0.15 220);
+  --color-info-content: oklch(98% 0.01 220);
+
+  --color-success: oklch(70% 0.18 145);
+  --color-success-content: oklch(98% 0.01 145);
+
+  --color-warning: oklch(80% 0.15 85);
+  --color-warning-content: oklch(20% 0.02 85);
+
+  --color-error: oklch(65% 0.22 25);
+  --color-error-content: oklch(98% 0.01 25);
+
+  /* Arrondis */
+  --radius-selector: 0.5rem;
+  --radius-field: 0.5rem;
+  --radius-box: 0.75rem;
+
+  /* Tailles */
+  --size-selector: 0.25rem;
+  --size-field: 0.25rem;
+  --border: 1px;
+  --depth: 0;
+  --noise: 0;
+}
+
+/* Variables globales */
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Variables Task Flow */
+  --color-primary-blue: oklch(55% 0.22 264);
+  --color-success-green: oklch(70% 0.18 145);
+  --color-warning-yellow: oklch(80% 0.15 85);
+  --color-error-red: oklch(65% 0.22 25);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Styles de base du body */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}
+
+/* =============================================================
+   OVERRIDES CLERK — Forcer les couleurs DaisyUI sur les
+   composants Clerk dont les styles inline écrasent Tailwind.
+   Les classes .cl-* sont les classes internes du SDK Clerk.
+   ============================================================= */
+
+/* Bouton principal (Se connecter / Créer mon compte) */
+.cl-formButtonPrimary {
+  background-color: var(--color-primary) !important;
+  color: var(--color-primary-content) !important;
+  border-color: var(--color-primary) !important;
+  border-radius: var(--radius-field) !important;
+}
+.cl-formButtonPrimary:hover {
+  opacity: 0.88 !important;
+}
+.cl-formButtonPrimary:focus-visible {
+  outline-color: var(--color-primary) !important;
+}
+
+/* Liens du footer (S'inscrire / Se connecter) */
+.cl-footerActionLink {
+  color: var(--color-primary) !important;
+}
+.cl-footerActionLink:hover {
+  opacity: 0.8 !important;
+}
+
+/* Champs de saisie */
+.cl-formFieldInput {
+  border-color: var(--color-base-300) !important;
+  border-radius: var(--radius-field) !important;
+}
+.cl-formFieldInput:focus {
+  border-color: var(--color-primary) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 2px color-mix(in oklch, var(--color-primary) 20%, transparent) !important;
+}
+
+/* Bouton social (Continuer avec Google) */
+.cl-socialButtonsBlockButton {
+  border-color: var(--color-base-300) !important;
+  border-radius: var(--radius-field) !important;
+}
+.cl-socialButtonsBlockButton:hover {
+  background-color: var(--color-base-200) !important;
+}
+
+/* Bouton "voir le mot de passe" */
+.cl-formFieldInputShowPasswordButton {
+  color: var(--color-base-content) !important;
+  opacity: 0.5;
 }
