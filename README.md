@@ -90,23 +90,7 @@ bash
 npm run dev
 Ouvrir http://localhost:3000 dans le navigateur.
 
-📁 Structure du projet
-text
-taskflow/
-├── prisma/               # Schéma et migrations de la base de données
-├── public/               # Assets statiques (images, illustrations)
-├── src/
-│   ├── actions/          # Server Actions (Prisma)
-│   ├── app/              # Pages et layouts (App Router)
-│   │   ├── (protected)/  # Routes protégées (avec NavBar)
-│   │   ├── sign-in/      # Page de connexion
-│   │   └── sign-up/      # Page d'inscription
-│   ├── components/       # Composants React réutilisables
-│   ├── lib/              # Utilitaires (Prisma client, config Clerk)
-│   └── proxy.ts          # Middleware Next.js 16
-├── .env                  # Variables d'environnement (non versionné)
-├── next.config.ts        # Configuration Next.js
-└── package.json
+
 🎓 Ce que j'ai appris
 Ce projet m'a permis de consolider mes compétences sur :
 
