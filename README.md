@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Task Flow
 
 > Un outil personnel de gestion de projets et de tâches, conçu pour organiser mes projets personnels et mes collaborations.
